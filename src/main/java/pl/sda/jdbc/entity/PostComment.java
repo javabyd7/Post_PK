@@ -17,8 +17,7 @@ public class PostComment {
     @Column(name = "version")
     private int version;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL)
+    @ManyToOne(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
     private Post post;
 

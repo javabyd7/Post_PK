@@ -72,5 +72,15 @@ public class PostDAO {
         return postDetails;
     }
 
+    public void postDelete (int postId){
+        Session session = HibernateUtils.getSession();
+        Transaction transaction = session.beginTransaction();
+        Post post = session.get(Post.class, postId);
+        session.delete(post);
+        transaction.commit();
+        System.out.println("delete comfit");
+        HibernateUtils.closeSession();
+    }
+
 
 }

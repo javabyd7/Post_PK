@@ -1,6 +1,9 @@
 package pl.sda.jdbc.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -14,9 +17,12 @@ public class Post {
     @Column(name = "title")
     private String title;
 
-    @OneToOne
-    @JoinColumn(name = "post_detail")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_detail_id")
     private PostDetails postDetails;
+
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
+    private List<PostComment> postComment;
 
     public Post() {
     }
@@ -48,6 +54,14 @@ public class Post {
 
     public void setPostDetails(PostDetails postDetails) {
         this.postDetails = postDetails;
+    }
+
+    public List<PostComment> getPostComment() {
+        return postComment;
+    }
+
+    public void setPostComment(List<PostComment> postComment) {
+        this.postComment = postComment;
     }
 
     @Override

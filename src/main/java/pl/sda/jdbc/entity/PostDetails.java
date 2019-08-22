@@ -21,7 +21,7 @@ public class PostDetails {
     @Column(name = "version")
     private int version;
 
-    @OneToOne(mappedBy = "postDetails")
+    @OneToOne(mappedBy = "postDetails", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Post post;
 
     public PostDetails() {
