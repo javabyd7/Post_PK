@@ -14,15 +14,16 @@ public class Post {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "version")
-    private int version;
+    @OneToOne
+    @JoinColumn(name = "post_detail")
+    private PostDetails postDetails;
 
     public Post() {
     }
 
-    public Post(String title, int version) {
+    public Post(String title, PostDetails postDetails) {
         this.title = title;
-        this.version = version;
+        this.postDetails = postDetails;
     }
 
     public int getId() {
@@ -41,12 +42,12 @@ public class Post {
         this.title = title;
     }
 
-    public int getVersion() {
-        return version;
+    public PostDetails getPostDetails() {
+        return postDetails;
     }
 
-    public void setVersion(int version) {
-        this.version = version;
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", version=" + version +
+                ", postDetails=" + postDetails +
                 '}';
     }
 }

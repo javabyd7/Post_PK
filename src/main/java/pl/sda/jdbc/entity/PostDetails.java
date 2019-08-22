@@ -1,6 +1,7 @@
 package pl.sda.jdbc.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "post_details")
@@ -15,19 +16,21 @@ public class PostDetails {
     private String createdBy;
 
     @Column(name = "created_on")
-    private String createdOn;
+    private Date date;
 
-    @OneToOne
-    @JoinColumn(name = "version")
+    @Column(name = "version")
+    private int version;
+
+    @OneToOne(mappedBy = "postDetails")
     private Post post;
 
     public PostDetails() {
     }
 
-    public PostDetails(String createdBy, String createdOn, Post post) {
+    public PostDetails(String createdBy, Date date, int version) {
         this.createdBy = createdBy;
-        this.createdOn = createdOn;
-        this.post = post;
+        this.date = date;
+        this.version = version;
     }
 
     public int getId() {
@@ -46,12 +49,20 @@ public class PostDetails {
         this.createdBy = createdBy;
     }
 
-    public String getCreatedOn() {
-        return createdOn;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Post getPost() {
@@ -67,8 +78,8 @@ public class PostDetails {
         return "PostDetails{" +
                 "id=" + id +
                 ", createdBy='" + createdBy + '\'' +
-                ", createdOn='" + createdOn + '\'' +
-                ", post=" + post +
+                ", date=" + date +
+                ", version=" + version +
                 '}';
     }
 }
